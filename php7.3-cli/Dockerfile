@@ -1,0 +1,30 @@
+FROM php:7.3-cli-stretch
+
+ARG BUILD_DEPENDENCIES="${PHPIZE_DEPS} zlib1g-dev libtool git automake wget libgmp-dev libzip-dev libldap2-dev libmemcached-dev libyaml-dev libmagickwand-dev libmagickcore-dev"
+
+RUN apt-get update && apt-get -y --no-install-recommends install ${BUILD_DEPENDENCIES}
+
+RUN docker-php-ext-enable opcache
+
+RUN docker-php-ext-install ldap
+RUN docker-php-ext-install sockets
+RUN docker-php-ext-install pcntl
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install gmp
+
+RUN pecl install msgpack && docker-php-ext-enable msgpack
+RUN pecl install grpc && docker-php-ext-enable grpc
+RUN pecl install redis && docker-php-ext-enable redis
+RUN pecl install memcached && docker-php-ext-enable memcached
+RUN pecl install mongodb && docker-php-ext-enable mongodb
+RUN pecl install imagick && docker-php-ext-enable imagick
+RUN pecl install yaml && docker-php-ext-enable yaml
+RUN pecl install zip && docker-php-ext-enable zip
+
+RUN curl -s https://getcomposer.org/composer.phar -o /usr/bin/composer
+RUN chmod +x /usr/bin/composer
+RUN /usr/bin/composer config -g secure-http false
+
+WORKDIR /
+
+# CMD ["/bin/bash"]
