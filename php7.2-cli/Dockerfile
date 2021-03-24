@@ -1,4 +1,4 @@
-FROM php:7.3-cli-stretch
+FROM php:7.2-cli-stretch
 
 ARG BUILD_DEPENDENCIES="${PHPIZE_DEPS} zlib1g-dev libtool git automake wget unzip libgmp-dev libzip-dev libldap2-dev libmemcached-dev libyaml-dev libmagickwand-dev libmagickcore-dev"
 

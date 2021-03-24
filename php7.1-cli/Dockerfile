@@ -1,4 +1,4 @@
-FROM php:7.3-cli-stretch
+FROM php:7.1-cli-stretch
 
 ARG BUILD_DEPENDENCIES="${PHPIZE_DEPS} zlib1g-dev libtool git automake wget unzip libgmp-dev libzip-dev libldap2-dev libmemcached-dev libyaml-dev libmagickwand-dev libmagickcore-dev"
 
@@ -14,15 +14,15 @@ RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install gmp
 
-RUN pecl install msgpack   && docker-php-ext-enable msgpack
-RUN pecl install redis     && docker-php-ext-enable redis
-RUN pecl install memcached && docker-php-ext-enable memcached
-RUN pecl install mongodb   && docker-php-ext-enable mongodb
-RUN pecl install imagick   && docker-php-ext-enable imagick
-RUN pecl install yaml      && docker-php-ext-enable yaml
-RUN pecl install zip       && docker-php-ext-enable zip
-RUN pecl install xdebug    && docker-php-ext-enable xdebug
-RUN pecl install grpc      && docker-php-ext-enable grpc
+RUN pecl install msgpack      && docker-php-ext-enable msgpack
+RUN pecl install redis        && docker-php-ext-enable redis
+RUN pecl install memcached    && docker-php-ext-enable memcached
+RUN pecl install mongodb      && docker-php-ext-enable mongodb
+RUN pecl install imagick      && docker-php-ext-enable imagick
+RUN pecl install yaml         && docker-php-ext-enable yaml
+RUN pecl install zip          && docker-php-ext-enable zip
+RUN pecl install xdebug-2.9.8 && docker-php-ext-enable xdebug
+RUN pecl install grpc         && docker-php-ext-enable grpc
 
 RUN echo 'xdebug.mode=coverage' >> /usr/local/etc/php/php.ini
 
